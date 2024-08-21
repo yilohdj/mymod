@@ -1,0 +1,8 @@
+<sounds root="sfx/">
+    <sound name="Party Popper">
+        <sample weight = "1" path="partypopper.wav" />
+    </sound>
+    <sound name="Reforger">
+        <sample weight = "1" path="reforger.wav" />
+    </sound>
+</sounds>

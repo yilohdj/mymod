@@ -1,0 +1,9 @@
+<items gfxroot="gfx/items/" version="1">
+    <passive id="1" name="Damage Potion" gfx="damage_potion_item.png" description="It smells like ashes and anger" quality="1" cache="damage" />
+    <active id="2" name="Reforger" gfx="reforger_item.png" description="Reforge your goods" quality="2" maxcharges="6" chargetype="normal"/>
+    <active id="3" name="Party Popper" gfx="partypopper_item.png" description="A party in your pocket!" quality="1" maxcharges="4" chargetype="normal"/>
+    <passive id="4" name="Tear Gas" gfx="teargas_item.png" description="Overflowing with tears" quality="3" cache="damage firedelay range"/>
+    <passive id="5" name="Rock" gfx="rock_item.png" description="Throw another rock!" quality="3"/>
+    <passive id="6" name="Holy Spirit" gfx="supportivefire_item.png" description="Help from within" quality="4"/>
+    <active id="7" name="Scraper" gfx="scraper_item.png" description="Scraper together a few friends" quality="0" maxcharges="0" chargetype="normal"/>
+</items>
