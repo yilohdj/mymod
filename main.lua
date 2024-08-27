@@ -9,6 +9,7 @@ local rock = Isaac.GetItemIdByName("Rock")
 local supportfire = Isaac.GetItemIdByName("Holy Spirit")
 local scraper = Isaac.GetItemIdByName("Scraper")
 local pierogis = Isaac.GetItemIdByName("Pierogis")
+local pierogicounter = 0;
 function mod:EvaluateCache(player, cacheFlags)
     if cacheFlags & CacheFlag.CACHE_DAMAGE == CacheFlag.CACHE_DAMAGE then
         local itemCount = player:GetCollectibleNum(damagePotion)
@@ -32,8 +33,17 @@ function mod:EvaluateCache(player, cacheFlags)
             player.TearRange = rangeModifier
         end
     elseif cacheFlags & CacheFlag.CACHE_LUCK == CacheFlag.CACHE_LUCK then
+        -- Luck up and HP up for pierogis
         local itemCount = player:GetCollectibleNum(pierogis)
         player.Luck = player.Luck + itemCount
+        -- Gives 2 heart containers, 2 soul hearts, 2 black hearts, and heals to full
+        if(pierogicounter<itemCount) then
+            player:AddMaxHearts(4,true)
+            player:AddSoulHearts(4)
+            player:AddBlackHearts(4)
+            player:AddHearts(99999)
+            pierogicounter=pierogicounter+1
+        end
     end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
