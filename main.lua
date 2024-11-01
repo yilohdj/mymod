@@ -8,6 +8,7 @@ local teargas = Isaac.GetItemIdByName("Tear Gas")
 local rock = Isaac.GetItemIdByName("Scroll of Earthbending")
 local supportfire = Isaac.GetItemIdByName("Holy Spirit")
 local scraper = Isaac.GetItemIdByName("Scraper")
+local pierogis = Isaac.GetItemIdByName("Pierogis")
 function mod:EvaluateCache(player, cacheFlags)
     if cacheFlags & CacheFlag.CACHE_DAMAGE == CacheFlag.CACHE_DAMAGE then
         local itemCount = player:GetCollectibleNum(damagePotion)
@@ -30,6 +31,9 @@ function mod:EvaluateCache(player, cacheFlags)
             local rangeModifier = player.TearRange * 0.7
             player.TearRange = rangeModifier
         end
+    elseif cacheFlags & CacheFlag.CACHE_LUCK == CacheFlag.CACHE_LUCK then
+        local itemCount = player:GetCollectibleNum(pierogis)
+        player.Luck = player.Luck + itemCount
     end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
