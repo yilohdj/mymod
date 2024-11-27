@@ -36,11 +36,10 @@ function mod:EvaluateCache(player, cacheFlags)
         -- Luck up and HP up for pierogis
         local itemCount = player:GetCollectibleNum(pierogis)
         player.Luck = player.Luck + itemCount
-        -- Gives 2 heart containers, 2 soul hearts, 2 black hearts, and heals to full
+        -- Gives 2 heart containers, 2 bone hearts, and heals to full
         if(pierogicounter<itemCount) then
             player:AddMaxHearts(4,true)
-            player:AddSoulHearts(4)
-            player:AddBlackHearts(4)
+            player:AddBoneHearts(2)
             player:AddHearts(99999)
             pierogicounter=pierogicounter+1
         end
