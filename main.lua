@@ -1,6 +1,4 @@
 local mod = RegisterMod("My Mod", 1)
-local damagePotion = Isaac.GetItemIdByName("Damage Potion")
-local damagePotionDamage = 1
 local partypopper = Isaac.GetItemIdByName("Party Popper")
 local sfxReforger = SFXManager()
 local sfxPopper = SFXManager()
@@ -9,12 +7,10 @@ local rock = Isaac.GetItemIdByName("Scroll of Earthbending")
 local supportfire = Isaac.GetItemIdByName("Holy Spirit")
 local scraper = Isaac.GetItemIdByName("Scraper")
 local pierogis = Isaac.GetItemIdByName("Pierogis")
+local reforger = Isaac.GetItemIdByName("Reforger")
 local pierogicounter = 0;
 function mod:EvaluateCache(player, cacheFlags)
     if cacheFlags & CacheFlag.CACHE_DAMAGE == CacheFlag.CACHE_DAMAGE then
-        local itemCount = player:GetCollectibleNum(damagePotion)
-        local damageToAdd = damagePotionDamage * itemCount
-        player.Damage = player.Damage + damageToAdd
         -- Damage Multiplier down for teargas
         if(player:GetCollectibleNum(teargas)>=1) then
             player.Damage = player.Damage * 0.5
@@ -217,7 +213,6 @@ function mod:UpdateTears()
 end
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, mod.UpdateTears)
 
-local reforger = Isaac.GetItemIdByName("Reforger")
 local SOUND_REFORGER = Isaac.GetSoundIdByName("Reforger")
 -- Code for Reforger, its sfx, and its pickup upgrades
 function mod:ReforgerUse(item)
