@@ -2,12 +2,14 @@ local mod = RegisterMod("My Mod", 1)
 local partypopper = Isaac.GetItemIdByName("Party Popper")
 local sfxReforger = SFXManager()
 local sfxPopper = SFXManager()
+local sfxCrit = SFXManager()
 local teargas = Isaac.GetItemIdByName("Tear Gas")
 local rock = Isaac.GetItemIdByName("Scroll of Earthbending")
 local supportfire = Isaac.GetItemIdByName("Holy Spirit")
 local scraper = Isaac.GetItemIdByName("Scraper")
 local pierogis = Isaac.GetItemIdByName("Pierogis")
 local reforger = Isaac.GetItemIdByName("Reforger")
+local nebulizer = Isaac.GetItemIdByName("Nebulizer")
 local pierogicounter = 0;
 function mod:EvaluateCache(player, cacheFlags)
     if cacheFlags & CacheFlag.CACHE_DAMAGE == CacheFlag.CACHE_DAMAGE then
@@ -314,3 +316,64 @@ function mod:ScraperUse(item)
     end
 end
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.ScraperUse, scraper)
+
+--Code for Nebulizer, critical hits
+local SOUND_CRIT = Isaac.GetSoundIdByName("Crit") 
+function mod:Nebulizer(entity, damageamount, damageflags, source, countdown)
+    if not entity:ToNPC() or damageamount <= 0 then return end
+    if (damageflags & 1073742080) == (1073742080) then return end
+    if (Isaac.GetPlayer():HasCollectible(nebulizer)) then
+        if (source.SpawnerType == EntityType.ENTITY_PLAYER or source.Type == EntityType.ENTITY_PLAYER) and source.Entity:GetData().SupportFire == nil then
+            if math.random() < (0.2 + 0.05 * Isaac.GetPlayer().Luck) then
+                --Halve the volume
+                sfxCrit:Play(SOUND_CRIT, 0.3, 0, false, 1.0)
+                SPAWN_CRIT_TEXT(entity.Position)
+                --DamageFlag clone and DamageFlag ignore armor
+                entity:TakeDamage(damageamount * 0.5, damageflags | 1073742080, source, countdown)
+            end
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.Nebulizer, EntityType.Entity_NPC)
+-- Animation handling for critical hits
+local critSprite = Sprite()
+critSprite:Load("gfx/effects/crit_text.anm2", true)
+local activeCrits = {}
+function SPAWN_CRIT_TEXT(position)
+    local critAnim = {
+        sprite = Sprite(),
+        position = position,
+        timer = 30,  -- How many frames the animation lasts
+        offsetX = math.random(-10,10),
+        offsetY = math.random(-10, 10)
+    }
+    critAnim.sprite:Load("gfx/effects/crit_text.anm2", true)
+    critAnim.sprite:Play("Appear", true)
+    table.insert(activeCrits, critAnim)
+end
+function mod:onRender()
+    for i = #activeCrits, 1, -1 do
+        local crit = activeCrits[i]
+        
+        -- Update animation
+        crit.sprite:Update()
+        
+        -- Get the screen position from the room position
+        local screenPos = Isaac.WorldToScreen(crit.position)
+        
+        -- Render at the converted position
+        local offsetX = 0
+        local offsetY = -20
+        crit.sprite:RenderLayer(0, Vector(screenPos.X + offsetX + crit.offsetX, screenPos.Y + offsetY + crit.offsetY))
+        
+        -- Make text float upward (in room coordinates)
+        crit.position = Vector(crit.position.X, crit.position.Y - 1)
+        
+        -- Decrease timer and remove if expired
+        crit.timer = crit.timer - 1
+        if crit.timer <= 0 then
+            table.remove(activeCrits, i)
+        end
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_RENDER, mod.onRender)

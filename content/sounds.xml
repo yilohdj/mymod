@@ -5,4 +5,7 @@
     <sound name="Reforger">
         <sample weight = "1" path="reforger.wav" />
     </sound>
+    <sound name="Crit">
+        <sample weight = "10000" path="crit.wav" />
+    </sound>
 </sounds>
