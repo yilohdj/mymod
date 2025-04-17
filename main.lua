@@ -323,7 +323,7 @@ function mod:Nebulizer(entity, damageamount, damageflags, source, countdown)
     if not entity:ToNPC() or damageamount <= 0 then return end
     if (damageflags & 1073742080) == (1073742080) then return end
     if (Isaac.GetPlayer():HasCollectible(nebulizer)) then
-        if (source.SpawnerType == EntityType.ENTITY_PLAYER or source.Type == EntityType.ENTITY_PLAYER) and source.Entity:GetData().SupportFire == nil then
+        if ((source.SpawnerType == EntityType.ENTITY_PLAYER or source.Type == EntityType.ENTITY_PLAYER) and source.Entity:GetData().SupportFire == nil) and (entity:IsVulnerableEnemy()) then
             if math.random() < (0.2 + 0.05 * Isaac.GetPlayer().Luck) then
                 --Halve the volume
                 sfxCrit:Play(SOUND_CRIT, 0.3, 0, false, 1.0)
