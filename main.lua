@@ -10,7 +10,8 @@ local scraper = Isaac.GetItemIdByName("Scraper")
 local pierogis = Isaac.GetItemIdByName("Pierogis")
 local reforger = Isaac.GetItemIdByName("Reforger")
 local nebulizer = Isaac.GetItemIdByName("Nebulizer")
-local pierogicounter = 0;
+local holyfire = {}
+local pierogicounter = 0
 function mod:EvaluateCache(player, cacheFlags)
     if cacheFlags & CacheFlag.CACHE_DAMAGE == CacheFlag.CACHE_DAMAGE then
         -- Damage Multiplier down for teargas
@@ -150,7 +151,6 @@ function mod:supportFire(entity, amount, damageflags, source, countdownframes)
                 local tearEntity = Isaac.GetPlayer():FireTear(Isaac.GetPlayer().Position, (lastshootdirection*math.random(8,15)):Rotated(rotate), false,true,false, Isaac.GetPlayer(), 1)
                 tearEntity:ChangeVariant(TearVariant.DARK_MATTER)
                 tearEntity.CollisionDamage = amount * 0.5
-                local color = Color.Default
                 tearEntity:SetColor(Color(1, 1, 1, 1, 255, 255, 255), 9999999, 1, false, false)
                 tearEntity:SetKnockbackMultiplier(0)
                 tearEntity.TearFlags = TearFlags.TEAR_NORMAL
@@ -195,7 +195,6 @@ function mod:UpdateTears()
             local nearestDistance = math.huge
             --Finding the nearest vulnerable enemy to tear
             for _, target in pairs(Isaac.GetRoomEntities()) do
-                local game = Game()
                 if target:IsVulnerableEnemy() then
                     local distance = target.Position:Distance(tear.Position)
                     if distance < nearestDistance then

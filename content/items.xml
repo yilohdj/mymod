@@ -1,10 +1,10 @@
 <items gfxroot="gfx/items/" version="1">
     <active id="1" name="Reforger" gfx="reforger_item.png" description="Reforge your goods" quality="2" maxcharges="6" chargetype="normal"/>
     <active id="2" name="Party Popper" gfx="partypopper_item.png" description="A party in your pocket!" quality="1" maxcharges="4" chargetype="normal"/>
-    <passive id="3" name="Tear Gas" gfx="teargas_item.png" description="Overflowing with tears" quality="3" cache="damage firedelay range"/>
+    <passive id="3" name="Tear Gas" gfx="teargas_item.png" description="Overflowing with tears" quality="3" cache="damage firedelay range" tags="tearsup"/>
     <passive id="4" name="Scroll of Earthbending" gfx="rock_item.png" description="Throw another rock!" quality="3"/>
-    <passive id="5" name="Holy Spirit" gfx="holy_spirit_item.png" description="Help from within" quality="4"/>
-    <active id="6" name="Scraper" gfx="scraper_item.png" description="Scraper together a few friends" quality="0" maxcharges="0" chargetype="normal"/>
-    <passive id="7" name="Pierogis" gfx="pierogis_item.png" description="HP Up!" quality="3" cache="luck"/>
+    <passive id="5" name="Holy Spirit" gfx="holy_spirit_item.png" description="Help from within" quality="4" tags="angel"/>
+    <active id="6" name="Scraper" gfx="scraper_item.png" description="Scraper together a few friends" quality="0" maxcharges="0" chargetype="normal" tags="nolostbr food"/>
+    <passive id="7" name="Pierogis" gfx="pierogis_item.png" description="HP Up!" quality="3" cache="luck" tags="nolostbr"/>
     <passive id="8" name="Nebulizer" gfx="nebulizer_item.png" description="Critical Hit!" quality="3"/>
 </items>
