@@ -123,7 +123,7 @@ function mod:rockExplode()
                 for i = 1, 5 do
                     local damage = tear.BaseDamage/math.random(4,10)
                     local splashTear = Isaac.GetPlayer():FireTear(tear.Position, Vector(Isaac.GetPlayer().ShotSpeed*10,0):Rotated(math.random(360)), true,true,false, player, damage)
-                    splashTear.TearFlags = TearFlags.TEAR_NORMAL
+                    splashTear.TearFlags = TearFlags.TEAR_ACID
                     local tearBonus = math.random()*.5+.75
                     splashTear:ToTear().Scale = tear.Scale*tearBonus*0.52192982456
                     splashTear:ToTear().FallingSpeed = (tear.FallingSpeed*.5*(math.random()*.75+.5))*-2

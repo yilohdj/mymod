@@ -2,8 +2,15 @@
     <Pool Name="treasure">
         <Item Name="Reforger" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Party Popper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scraper" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Scroll of Earthbending" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Nebulizer" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="boss">
         <Item Name="Tear Gas" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Pierogis" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+    <Pool Name="angel">
+        <Item Name="Holy Spirit" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 </ItemPools>
